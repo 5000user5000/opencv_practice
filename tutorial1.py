@@ -13,7 +13,7 @@ def read_video():
     cap = cv2.VideoCapture(1)
     
     while True:
-        ret , frame = cap.read()
+        ret , frame = cap.read() #ret是return 縮寫,返回值
         if ret:
             frame = cv2.resize(frame,(0,0),fx=1.2,fy=1.2)
         else:
