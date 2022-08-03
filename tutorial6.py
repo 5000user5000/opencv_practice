@@ -2,6 +2,10 @@ from ast import For
 import cv2
 
 img = cv2.imread('shape.jpg')
+#把圖片放大,看的較清楚 (但放太大,圖形偵測可能失靈)
+amp = 2
+img = cv2.resize(img,(0,0),fx=amp,fy=amp)
+
 imgCountour = img.copy()#先複製一張,cnt那裏畫圖在上
 #先轉灰階,因為輪廓檢測不須顏色
 img = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
@@ -24,11 +28,11 @@ for cnt in contours:
         x,y,w,h = cv2.boundingRect(vertices)
         cv2.rectangle(imgCountour,(x,y),(x+w,y+h),(0,255,0),4)#會看到綠色方形把每個圖框起來
         if corner ==3:
-            cv2.putText(imgCountour,'triangle',(x,y-5),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,255),1)
+            cv2.putText(imgCountour,'triangle',(x,y-5),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,255),2)
         if corner ==4:
-            cv2.putText(imgCountour,'rectangle',(x,y-5),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,255),1)
+            cv2.putText(imgCountour,'rectangle',(x,y-5),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,255),2)
         if corner >6:
-            cv2.putText(imgCountour,'circle',(x,y-5),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,255),1)
+            cv2.putText(imgCountour,'circle',(x,y-5),cv2.FONT_HERSHEY_SIMPLEX,0.5,(0,0,255),2)
 cv2.imshow('img',img)
 cv2.imshow('canny',canny)
 cv2.imshow('imgCountour',imgCountour)
